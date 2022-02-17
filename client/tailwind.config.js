@@ -21,9 +21,21 @@ module.exports = {
                 transform: "translateX(0%)",
             },
             },
+            "bounce-slow": {
+                "0%": {
+                  transform: 'translateY(0)',
+                },
+                "50%": {
+                    transform: 'translateY(-7%)',
+                },
+                "100%": {
+                  transform: 'translateY(0)'
+                }
+              }
         },
         animation: {
             "slide-in": "slide-in 0.5s ease-out",
+            'bounce-slow': 'bounce-slow 2.5s linear infinite',
         },
         },
     },
