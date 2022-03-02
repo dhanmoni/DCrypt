@@ -23,7 +23,7 @@ const Welcome = () => {
   // const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
 
   const handleSubmit = (e) => {
-    const { addressTo, amount, keyword, message } = formData;
+    const { addressTo, amount, message } = formData;
 
     e.preventDefault();
 
@@ -73,7 +73,7 @@ const Welcome = () => {
         </div>
 
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
-          <div className="p-3 flex hover:animate-bounce-slow justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
+          <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
             <div className="flex justify-between flex-col w-full h-full">
               <div className="flex justify-between items-start">
                 <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center ">
@@ -107,12 +107,6 @@ const Welcome = () => {
           handleChange={() => {}}
         />
         <Input
-          placeholder="Keyword (Gif)"
-          name="keyword"
-          type="text"
-          handleChange={() => {}}
-        />
-        <Input
           placeholder="Enter Message"
           name="message"
           type="text"
@@ -127,7 +121,7 @@ const Welcome = () => {
           <button
             type="button"
             onClick={handleSubmit}
-            className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
+            className="text-white w-full mt-2 border-[1px] p-2 border-[#2952e3] hover:bg-[#2952e3] rounded-full cursor-pointer"
           >
             Send now
           </button>
