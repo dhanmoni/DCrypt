@@ -1,6 +1,7 @@
 # DCrypt
 
-A web3.0 application built using Solidity and hardhat on the backend, React.js on the frontend and deployed on the Ropsten testet 
+A web3.0 application built using Solidity and hardhat on the backend, React.js on the frontend and deployed on the Ropsten testet .
+Using the application, any address can transfer crypto currency to any other address. Along with the amount, sender can also send a message with to the transaction.
 
 ## Image
 
