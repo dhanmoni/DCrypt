@@ -37,6 +37,46 @@ export const TransactionProvider = ({children})=> {
         setFormData((prevState)=> ({...prevState, [name]: e.target.value}))
     }
 
+    const getAllTransactions = async () => {
+        try {
+          if (ethereum) {
+            const transactionsContract = getEthereumContract();
+    
+            const availableTransactions = await transactionsContract.getAllTransactions();
+    
+            const structuredTransactions = availableTransactions.map((transaction) => ({
+              addressTo: transaction.receiver,
+              addressFrom: transaction.sender,
+              timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
+              message: transaction.message,
+              amount: parseInt(transaction.amount._hex) / (10 ** 18)
+            }));
+    
+            console.log(structuredTransactions);
+    
+            setTransactions(structuredTransactions);
+          } else {
+            console.log("Ethereum is not present");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+    const checkIfTransactionsExists = async () => {
+        try {
+          if (ethereum) {
+            const transactionsContract = getEthereumContract();
+            const currentTransactionCount = await transactionsContract.getTransactionCount();
+    
+            window.localStorage.setItem("transactionCount", currentTransactionCount);
+          }
+        } catch (error) {
+          console.log(error);
+    
+          throw new Error("No ethereum object");
+        }
+      };
 
     const checkIfWalletIsConnected = async()=> {
         try {
@@ -44,8 +84,8 @@ export const TransactionProvider = ({children})=> {
             const accounts = await ethereum.request({method: 'eth_accounts'});
             if(accounts.length) {
                 setCurrentAccount(accounts[0]);
-
-                //getAllTransactions
+                //getAllTransactions    
+                getAllTransactions();
             } else {
                 console.log('No account found')
             }
@@ -56,6 +96,7 @@ export const TransactionProvider = ({children})=> {
     }
 
     const connectWallet = async ()=> {
+       
         console.log('connecting wallet...')
         try {
             if(!ethereum) return alert("Please install metamask!");
@@ -103,8 +144,9 @@ export const TransactionProvider = ({children})=> {
     }
 
     useEffect(()=> {
-        checkIfWalletIsConnected()
-    }, [])
+        checkIfWalletIsConnected();
+        checkIfTransactionsExists();
+    }, [transactionCount])
     return (
         <TransactionContext.Provider 
         value= {{ connectWallet, 
